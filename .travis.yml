@@ -1,0 +1,38 @@
+language: node_js
+node_js:
+  - 13
+
+services:
+  - docker
+
+before_install:
+  - pyenv global 3.7.1
+  - pip install -U pip
+  - pip install awscli
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+  - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+  - chmod +x ./kubectl
+  - sudo mv ./kubectl /usr/local/bin/kubectl
+  - mkdir ${HOME}/.kube
+  - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
+  - mkdir ${HOME}/.aws
+  - echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
+  - echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
+
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"
+
+script:
+  - aws configure --profile default
+  - docker --version # print the version for logging
+  - kubectl get pods
+#  - docker build -t simple-node .
+#  - docker tag simple-node YOUR_DOCKER_HUB/simple-node:latest
+
+# Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
+after_success:
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#  - docker push YOUR_DOCKER_HUB/simple-node
