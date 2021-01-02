@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: reverse-proxy-ingress
+  namespace: udagram
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: reverse-proxy-svc
+          servicePort: 8080
+        path: /(.*)
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: reverse-proxy
+  name: reverse-proxy-svc
+  namespace: udagram
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    service: reverse-proxy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: reverse-proxy
+  name: reverse-proxy
+  namespace: udagram
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        service: reverse-proxy
+  template:
+    metadata:
+      labels:
+        service: reverse-proxy
+    spec:
+      containers:
+      - image: ybsnek/udagram-reverse-proxy
+        name: reverse-proxy
+        imagePullPolicy: Always            
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
