@@ -20,7 +20,7 @@ install:
   # - mkdir ${HOME}/.aws
   # - echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
   # - echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
-
+# WTF, annoing as hell
 # Scripts to be run such as tests
 before_script:
   - echo "no tests"
