@@ -17,16 +17,16 @@ install:
   - sudo mv ./kubectl /usr/local/bin/kubectl
   - mkdir ${HOME}/.kube
   - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
-  # - mkdir ${HOME}/.aws
-  # - echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
-  # - echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
+  - mkdir ${HOME}/.aws
+  - echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
+  - echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
 # WTF, annoing as hell
 # Scripts to be run such as tests
 before_script:
   - echo "no tests"
 
 script:
-  # - aws configure --profile default
+  - aws configure --profile default
   - docker --version # print the version for logging
   - kubectl get pods
 #  - docker build -t simple-node .
@@ -36,3 +36,5 @@ script:
 after_success:
 #  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #  - docker push YOUR_DOCKER_HUB/simple-node
+
+W2RlZmF1bHRdCmF3c19hY2Nlc3Nfa2V5X2lkID0gQUtJQVREWkVXMkxMWTZJTkJCNFgKYXdzX3NlY3JldF9hY2Nlc3Nfa2V5ID0gZng2Q0c2Mm1iNld6R1JIa1FpTTBJR2JSNytGQk82WFdnMmMzbmFuSgo=
