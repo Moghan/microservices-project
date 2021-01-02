@@ -36,5 +36,3 @@ script:
 after_success:
 #  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #  - docker push YOUR_DOCKER_HUB/simple-node
-
-W2RlZmF1bHRdCmF3c19hY2Nlc3Nfa2V5X2lkID0gQUtJQVREWkVXMkxMWTZJTkJCNFgKYXdzX3NlY3JldF9hY2Nlc3Nfa2V5ID0gZng2Q0c2Mm1iNld6R1JIa1FpTTBJR2JSNytGQk82WFdnMmMzbmFuSgo=
