@@ -22,14 +22,14 @@ install:
   - aws configure set default.region eu-north-1
   - aws eks --region eu-north-1 update-kubeconfig --name udagram3-cluster
 
-# WTF, annoing as hell
 # Scripts to be run such as tests
 before_script:
   - echo "no tests"
 
 script:
   - docker --version # print the version for logging
-  - kubectl get pods
+  - kubectl get nodes
+  - kubectl get pods -n udagram
 #  - docker build -t simple-node .
 #  - docker tag simple-node YOUR_DOCKER_HUB/simple-node:latest
 
