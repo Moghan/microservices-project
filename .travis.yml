@@ -28,6 +28,10 @@ before_script:
 
 script:
   - docker --version # print the version for logging
+  - cd k8s
+  - kubectl apply monolit
+  - kubectl apply frontend
+  - kubectl apply reverse-proxy
   - kubectl get nodes
   - kubectl get pods -n udagram
 #  - docker build -t simple-node .
