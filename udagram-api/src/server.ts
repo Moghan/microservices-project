@@ -39,7 +39,6 @@ import {V0_FEED_MODELS, V0_USER_MODELS} from './controllers/v0/model.index';
 
   // Start the Server
   app.listen( port, () => {
-    console.log("\nprocess.env.AWS_ACCESS_KEY_ID ---------------------------------->\n", process.env.AWS_ACCESS_KEY_ID)
     console.log( `server running ${config.url}` );
     console.log( `press CTRL+C to stop server` );
   } );
