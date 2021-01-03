@@ -2,9 +2,14 @@ import AWS = require('aws-sdk');
 import {config} from './config/config';
 
 
+// The SDK automatically detects AWS credentials set as variables in your environment
+// and uses them for SDK requests. This eliminates the need to manage credentials in your application.
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-environment.html
+
+// This was the main problem and I struggled with it for quite some time! Solution was the remove the two lines below.
 // Configure AWS
-const credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-AWS.config.credentials = credentials;
+// const credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+// AWS.config.credentials = credentials;
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
