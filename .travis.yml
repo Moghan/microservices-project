@@ -32,13 +32,9 @@ script:
   - kubectl apply -f monolit
   - kubectl apply -f frontend
   - kubectl apply -f reverse-proxy
-  - kubectl autoscale deployment monolit --cpu-percent=60 --min=1 --max=3
+  - kubectl autoscale deployment monolit-deployment --cpu-percent=60 --min=1 --max=3
   - kubectl get nodes
   - kubectl get pods -n udagram
-#  - docker build -t simple-node .
-#  - docker tag simple-node YOUR_DOCKER_HUB/simple-node:latest
 
-# Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
-#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#  - docker push YOUR_DOCKER_HUB/simple-node
+  - echo "SUCCESS"
