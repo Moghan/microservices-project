@@ -18,15 +18,17 @@ install:
   - mkdir ${HOME}/.kube
   - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
   - mkdir ${HOME}/.aws
-  - echo "$AWS_CREDENTIALS" | base64 --decode > ${HOME}/.aws/credentials
-  - echo "$AWS_CONFIG" | base64 --decode > ${HOME}/.aws/config
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+  - aws configure set default.region eu-north-1
+  - aws eks --region eu-north-1 update-kubeconfig --name udagram3-cluster
+
 # WTF, annoing as hell
 # Scripts to be run such as tests
 before_script:
   - echo "no tests"
 
 script:
-  - aws configure --profile default
   - docker --version # print the version for logging
   - kubectl get pods
 #  - docker build -t simple-node .
