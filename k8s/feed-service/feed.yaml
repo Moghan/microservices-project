@@ -21,7 +21,7 @@ metadata:
   labels:
     app: feed-backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: feed-backend
