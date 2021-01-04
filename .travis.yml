@@ -9,9 +9,8 @@ before_install:
   - pyenv global 3.7.1
   - pip install -U pip
   - pip install awscli
-# Pre-testing installs
+
 install:
-  - echo "nothing needs to be installed"
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl
@@ -27,12 +26,12 @@ before_script:
   - echo "no tests"
 
 script:
-  - docker --version # print the version for logging
   - cd k8s
-  - kubectl apply -f monolit
+  - kubectl apply -f feed-api
+  - kubectl apply -f user-api
   - kubectl apply -f frontend
   - kubectl apply -f reverse-proxy
-  - kubectl autoscale deployment monolit-deployment -n udagram --cpu-percent=60 --min=1 --max=3
+  - kubectl autoscale deployment feed-deployment -n udagram --cpu-percent=60 --min=1 --max=3
   - kubectl get nodes
   - kubectl get pods -n udagram
 
