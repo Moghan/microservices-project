@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: udagram
+  labels:
+    app: user-backend
+spec:
+  selector:
+    app: user-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  namespace: udagram
+  labels:
+    app: user-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-backend
+  template:
+    metadata:
+      labels:
+        app: user-backend
+    spec:
+      containers:
+      - name: user-backend-container
+        image: ybsnek/user-api
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POSTGRES_USERNAME
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_HOST
+          value: database-1.ctpfwg4b3n2v.eu-north-1.rds.amazonaws.com
+        - name: POSTGRES_DB
+          value: udagram
+        - name: JWT_SECRET
+          value: hello
+        - name: URL
+          value: http://a9efea34b32ce409195e1878b6e8aceb-0b290277e49844bf.elb.eu-north-1.amazonaws.com
