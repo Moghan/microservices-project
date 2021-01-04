@@ -79,7 +79,7 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(401).send({auth: false, message: 'Password was invalid.'});
   }
 
-  console.log("User logged in: ", user)
+  console.log("User logged in: ", user.dataValues.email)
   const jwt = generateJWT(user);
   res.status(200).send({auth: true, token: jwt, user: user.short()});
 });
@@ -112,7 +112,7 @@ router.post('/', async (req: Request, res: Response) => {
   const savedUser = await newUser.save();
 
 
-  console.log("Register new user: ", savedUser)
+  console.log("Register new user: ", savedUser.dataValues.email)
   const jwt = generateJWT(savedUser);
   res.status(201).send({token: jwt, user: savedUser.short()});
 });
