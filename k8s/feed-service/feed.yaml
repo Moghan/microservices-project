@@ -33,6 +33,13 @@ spec:
       containers:
       - name: feed-backend-container
         image: ybsnek/feed-api
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
         ports:
         - containerPort: 8080
         env:
