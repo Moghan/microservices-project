@@ -27,8 +27,8 @@ before_script:
 
 script:
   - cd k8s
-  - kubectl apply -f feed-api
-  - kubectl apply -f user-api
+  - kubectl apply -f feed-service
+  - kubectl apply -f user-service
   - kubectl apply -f frontend
   - kubectl apply -f reverse-proxy
   - kubectl autoscale deployment feed-deployment -n udagram --cpu-percent=60 --min=1 --max=3
